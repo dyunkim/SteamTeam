@@ -10,13 +10,8 @@ public class main {
 		r.setPort("COM8"); 
 		r.setVerbose(true); // Turn on debugging messages 
 		r.connect();
-		//ServoTest(r, 135);
-		//DCTest(r);
-		//EncoderTest(r);
-		//testPing(r);
-		//testBump(r);
-		
-		/*do {
+
+		do {
 			System.out.println("\nCHOOSE: \n1. ServoTest");
 			System.out.println("2. DC Motor Test");
 			System.out.println("3. Encoded Motor Test");
@@ -46,7 +41,7 @@ public class main {
 			else {
 				System.out.println("Not an option");
 			}
-		} while(!test);*/
+		} while(!test);
 		r.close();
 	}
 
