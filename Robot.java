@@ -4,22 +4,34 @@ public class Robot {
 	private RXTXRobot r;
 	private Movement move;
 	private Collection collect;
+	private FinalPhase finalPhase;
+	private Bridge bridge;
 	
 	
 	public Robot(RXTXRobot r) {
 		this.r = r;
 		r.attachServo(RXTXRobot.SERVO2, 8);
+		
 		move = new Movement(r);
 		collect = new Collection(r);
+		finalPhase = new FinalPhase(r);
+		bridge = new Bridge(r);
 	}
 	public void runRobot() {
-		lowerSensorArm();
-		r.sleep(3000);
-		raiseSensorArm();
-		r.sleep(1000);
-		//backupWater();
-		//collect.prepareCollection();
-		//move.turn90left();
+//		backupBump();
+//.		lowerSensorArm();
+//		r.sleep(3000);
+//		collect.testWater();
+//		raiseSensorArm();
+		collect.collectBL();
+		move.turn90right();
+		r.runEncodedMotor(RXTXRobot.MOTOR1, 100, 75, RXTXRobot.MOTOR2, 100, 75);
+		r.sleep(500);
+		collect.collectBR();
+		move.turn90left();	
+		r.sleep(500);
+		collect.collectTR();
+		move.turn90left();
 	}
 	
 	public void backup() {	//back with a slow down
@@ -34,7 +46,7 @@ public class Robot {
 			sensor = temp.getValue();
 			System.out.printf("Sensor: %d\n", sensor);
 		} while(sensor < 700);
-		r.runMotor(RXTXRobot.MOTOR1, 0, RXTXRobot.MOTOR2, 0, 1000);
+		r.runMotor(RXTXRobot.MOTOR1, 0, RXTXRobot.MOTOR2, 0, 500);
 	}
 
 	public void lowerSensorArm() {
